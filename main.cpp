@@ -2,7 +2,7 @@
 #include <array>
 
 int main() {
-    std::cout << "Hello, world 2025!\n";
+    std::cout << "Hello, world 2025-2026!\n";
     std::array<int, 100> v{};
     int nr;
     std::cout << "Introduceți nr: ";
