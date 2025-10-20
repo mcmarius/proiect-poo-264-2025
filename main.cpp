@@ -1,5 +1,88 @@
 #include <iostream>
 #include <array>
+#include <ostream>
+#include <vector>
+
+class Restanta {
+    std::string nume;
+    int pret{};
+public:
+    [[nodiscard]] const std::string & get_nume() const {
+        return nume;
+    }
+
+    void set_nume(const std::string &nume) {
+        this->nume = nume;
+    }
+
+    [[nodiscard]] int get_pret() const {
+        return pret;
+    }
+
+    void set_pret(int pret) {
+        this->pret = pret;
+    }
+
+    Restanta() = default;
+
+    explicit Restanta(const std::string &nume)
+        : nume(nume) {
+    }
+
+    Restanta(const std::string &nume, int pret)
+        : nume(nume),
+          pret(pret) {
+    }
+
+    ~Restanta() {
+        std::cout << "destr restanta " << nume << "\n";
+    }
+
+    Restanta(const Restanta &other)
+        : nume(other.nume),
+          pret(other.pret) {
+    }
+
+    Restanta & operator=(const Restanta &other) {
+        if (this == &other)
+            return *this;
+        nume = other.nume;
+        pret = other.pret;
+        return *this;
+    }
+
+    friend std::ostream & operator<<(std::ostream &os, const Restanta &restanta) {
+        return os
+               << "nume: " << restanta.nume
+               << " pret: " << restanta.pret;
+    }
+};
+
+class Student {
+    std::string nume;
+    std::vector<Restanta> restante;
+
+public:
+    Student(const std::string &nume, const std::vector<Restanta> &restante)
+        : nume(nume),
+          restante(restante) {
+    }
+
+    friend std::ostream & operator<<(std::ostream &os, const Student &student) {
+        os
+               << "nume: " << student.nume
+               << " restante: ";
+        for (const auto & restanta: student.restante) {
+            os << restanta;
+        }
+        return os;
+    }
+};
+
+class Facultate {
+    std::string nume;
+    std::vector<Student> studenti;
+};
 
 int main() {
     std::cout << "Hello, world 2025-2026!\n";
