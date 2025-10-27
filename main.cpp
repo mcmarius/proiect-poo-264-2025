@@ -7,31 +7,15 @@ class Restanta {
     std::string nume;
     int pret{};
 public:
-    [[nodiscard]] const std::string & get_nume() const {
-        return nume;
-    }
-
-    void set_nume(const std::string &nume) {
-        this->nume = nume;
-    }
-
-    [[nodiscard]] int get_pret() const {
-        return pret;
-    }
-
-    void set_pret(int pret) {
-        this->pret = pret;
-    }
-
     Restanta() = default;
 
-    explicit Restanta(const std::string &nume)
-        : nume(nume) {
+    explicit Restanta(const std::string &nume_)
+        : nume(nume_) {
     }
 
-    Restanta(const std::string &nume, int pret)
-        : nume(nume),
-          pret(pret) {
+    Restanta(const std::string &nume_, int pret_)
+        : nume(nume_),
+          pret(pret_) {
     }
 
     ~Restanta() {
@@ -82,9 +66,27 @@ public:
 class Facultate {
     std::string nume;
     std::vector<Student> studenti;
+
+public:
+    Facultate(const std::string &nume, const std::vector<Student> &studenti)
+        : nume(nume),
+          studenti(studenti) {
+    }
+
+    friend std::ostream & operator<<(std::ostream &os, const Facultate &facultate) {
+        os << "nume: " << facultate.nume << "\nStudenti:\n";
+        for (const auto& student: facultate.studenti) {
+            os << student;
+        }
+        return os;
+    }
 };
 
 int main() {
+    Restanta r1("POO", 600);
+    Student st1("Restantescu", {r1});
+    Facultate f1("Facultatea de AI si somaj", {st1});
+    std::cout << f1 << "\n";
     std::cout << "Hello, world 2025-2026!\n";
     std::array<int, 100> v{};
     int nr;
